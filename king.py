@@ -56,9 +56,9 @@ class King(Piece):
                 if not piece_on_target or piece_on_target.color != self.color:
                     moves.append(target_square)
 
-        #Рокировка (упрощенная версия, без проверки на шах)
+        #Рокировка упрощенная версия
         if not self.moved:
-            #Короткая рокировка (король -> ладья на том же ряду)
+            #Короткая рокировка
             rook_pos = board.get_piece(Square(current_row, 7))
             if rook_pos and not rook_pos.moved:
                 if all(board.is_empty(Square(current_row, c)) for c in [5, 6]):
