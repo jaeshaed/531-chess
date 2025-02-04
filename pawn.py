@@ -1,27 +1,44 @@
 from piece import Piece
 
 class Pawn(Piece):
-    def __init__(self, color):
-        self.color = color #Цвет
-        self.position = None #(x, y)
+    def __init__(self, color, place_at, position):
+        super().__init__(color, place_at)
+        self.position = position
     
     def attack_squares(self):
         x, y = self.position
-        return [(x - 1, y + 1), (x + 1, y + 1)]
+        if self.color == 'white':
+            return [(x - 1, y + 1), (x + 1, y + 1)]
+        else:
+            return [(x - 1, y - 1), (x + 1, y - 1)]
 
-    def set_position(self, position):
-        self.position = position 
+    def capture_free_squares(self):
+        x, y = self.position
+        captures = []
 
-    def move(self):
+        if self.color == 'white':
+            attack = [(x - 1, y + 1), (x + 1, y + 1)]
+        else:
+            attack = [(x - 1, y - 1), (x + 1, y - 1)]
+
+        for dx, dy in attack:
+            new_x, new_y = x + dx, y + dy
+            if 0 <= new_x < 8 and 0 <= new_y < 8:
+                target = board[new_x][new_y]
+                if target is not None and target.color != self.color:
+                    captures.append((new_x, new_y))
+        return captures
+
+    def valid_moves(self):
         x, y = self.position
         moves = []
 
         if self.color == 'white':
-            moves.append((x, y + 1)) #Может двигаться на одну клетку вверх(белые снизу обычно)
-            if y == 1: #Если фигура в начальной позиции, а именно определяеться во Y, то она может:
-                moves.append((x, y + 2)) #Сделать шаг на 2 клетки вверх
-        elif self.color == 'black': #Движение вниз 
+            moves.append((x, y + 1))
+            if y == 1:
+                moves.append((x, y + 2))
+        elif self.color == 'black':
             moves.append((x, y - 1)) 
-            if y == 6: #Начальная позиция у черных(сверху)
+            if y == 6:
                 moves.append((x, y - 2))
         return moves
