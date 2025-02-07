@@ -1,0 +1,100 @@
+@startuml
+left to right direction
+hide empty members
+
+class Board {
+  -game: Game
+  +squares: Square[][]
+  +white_pieces: Piece[]
+  +black_pieces: Piece[]
+}
+Board "1" *-- "32" Piece
+Board "1" *-- "64" Square
+
+enum Color {
+  {static} + WHITE
+  {static} + BLACK
+}
+
+class Game {
+  -played_moves: Move[]
+  +turn: Color {readOnly}
+  +add_move(from: Square, to: Square)
+  +is_over()
+}
+Game --> Color
+Game "1" *-- "1" Board
+Game "1" *-- "n" Move
+
+class Move {
+  -start_square: Square
+  -end_square: Square
+  -piece: Piece
+  -captured_piece: Piece
+  +do(board: Board)
+}
+Move --> Piece
+Move --> Square
+Move --> Board
+
+enum MoveDirection {
+  {static} + UP
+  {static} + DOWN
+}
+
+class Pawn {
+  +move_direction: MoveDirection {readOnly}
+  +promoted: bool {readOnly}
+  +promote_to(piece_type: PieceType)
+}
+Pawn --> MoveDirection
+Pawn --> PieceType
+
+abstract class Piece {
+  -game: Game
+  +color: Color {readOnly}
+  +moved: bool
+  +place_at: Square
+  {abstract} +attackSquares(): Square[]
+  {abstract} +captureFreeMoves(): Square[]
+  {abstract} +validMoves(): Square[]
+  +is_bishop(): bool
+  +is_king(): bool
+  +is_knight(): bool
+  +is_pawn(): bool
+  +is_queen(): bool
+  +is_rook(): bool
+}
+Piece --> Color
+Piece <|.. Bishop
+Piece <|.. King
+Piece <|.. Knight
+Piece <|.. Queen
+Piece <|.. Rook
+Piece <|.. Pawn
+Piece --> Game
+
+enum PieceType {
+  {static} +BISHOP
+  {static} +KING
+  {static} +KNIGHT
+  {static} +PAWN
+  {static} +QUEEN
+  {static} +ROOK
+}
+
+class Square {
+  +color: Color {readOnly}
+  +file: int {readOnly}
+  +rank: int {readOnly}
+  +piece: Piece
+  +is_empty(): bool
+}
+Square --> Color
+Square -- Piece
+note on link
+  Классы Square и Piece ссылаются друг на друга.
+  Менять значения их атрибутов piece и place_at
+  соответственно имеет право только класс Move.
+end note
+@enduml
