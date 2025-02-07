@@ -1,10 +1,24 @@
 from piece import Piece
+from piece_type import PieceType
 
 class Pawn(Piece):
     def __init__(self, color, place_at, position):
         super().__init__(color, place_at)
         self.position = position
+        self._promoted_to = None
     
+    @property
+    def promoted(self):
+        return self._promoted_to is not None
+
+    def is_pawn(self):
+        return True 
+    
+    def promoted_to(self, piece_type):
+        assert isinstance(piece_type, PieceType)
+        self._promoted_to = piece_type
+
+
     def attack_squares(self):
         x, y = self.position
         if self.color == 'white':
