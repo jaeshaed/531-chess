@@ -14,7 +14,7 @@ class Piece:
 
         raise NotImplementedError("Этот метод должен быть реализован в подклассах!")
 
-    def capture_free_squares(self):
+    def capture_free_moves(self):
         """Возвращает список полей, на которые фигура может перейти из текущей позиции без взятия."""
 
         raise NotImplementedError("Этот метод должен быть реализован в подклассах!")
