@@ -1,15 +1,37 @@
 @startuml
 left to right direction
 hide empty members
+title Диаграмма классов
 
 class Board {
   -game: Game
-  +squares: Square[][]
+  +squares: Squares
   +white_pieces: Piece[]
   +black_pieces: Piece[]
+  +clear()
+  +move_piece(): Piece
+  +put_black_bishop_at(): Piece
+  +put_black_king_at(): Piece
+  +put_black_knight_at(): Piece
+  +put_black_pawn_at(): Piece
+  +put_black_queen_at(): Piece
+  +put_black_rook_at(): Piece
+  +put_piece(): Piece
+  +put_white_bishop_at(): Piece
+  +put_white_king_at(): Piece
+  +put_white_knight_at(): Piece
+  +put_white_pawn_at(): Piece
+  +put_white_queen_at(): Piece
+  +put_white_rook_at(): Piece
+  +remove_piece(): Piece
 }
 Board "1" *-- "32" Piece
-Board "1" *-- "64" Square
+Board "1" *-- "1" Squares
+Squares "1" *-- "64" Square
+note top of Squares
+  Squares - это объект-коллекция, нужен
+  для упрощения доступа к полям доски.
+end note
 
 enum Color {
   {static} + WHITE
@@ -43,6 +65,7 @@ enum MoveDirection {
 }
 
 class Pawn {
+  +double_step: bool
   +move_direction: MoveDirection {readOnly}
   +promoted: bool {readOnly}
   +promote_to(piece_type: PieceType)
@@ -51,19 +74,27 @@ Pawn --> MoveDirection
 Pawn --> PieceType
 
 abstract class Piece {
-  -game: Game
+  -board: Board
   +color: Color {readOnly}
-  +moved: bool
-  +place_at: Square
+  +moved: bool {readOnly}
+  +place_at: Square {readOnly}
+  -promoted_from: Piece
   {abstract} +attackSquares(): Square[]
   {abstract} +captureFreeMoves(): Square[]
   {abstract} +validMoves(): Square[]
+  +is_black(): bool
+  +is_white(): bool
   +is_bishop(): bool
   +is_king(): bool
   +is_knight(): bool
   +is_pawn(): bool
   +is_queen(): bool
   +is_rook(): bool
+  +is_offboard(): bool
+  +is_onboard(): bool
+  +move_to()
+  +put_at()
+  +remove()
 }
 Piece --> Color
 Piece <|.. Bishop
@@ -72,7 +103,6 @@ Piece <|.. Knight
 Piece <|.. Queen
 Piece <|.. Rook
 Piece <|.. Pawn
-Piece --> Game
 
 enum PieceType {
   {static} +BISHOP
@@ -84,17 +114,23 @@ enum PieceType {
 }
 
 class Square {
+  -all_squares: Squares
   +color: Color {readOnly}
   +file: int {readOnly}
   +rank: int {readOnly}
   +piece: Piece
+  +down: Square {readOnly}
+  +left: Square {readOnly}
+  +right: Square {readOnly}
+  +up: Square {readOnly}
   +is_empty(): bool
+  +is_downmost(): bool
+  +is_leftmost(): bool
+  +is_rightmost(): bool
+  +is_topmost(): bool
+  +is_on_board(): bool
+  +is_off_board(): bool
 }
 Square --> Color
 Square -- Piece
-note on link
-  Классы Square и Piece ссылаются друг на друга.
-  Менять значения их атрибутов piece и place_at
-  соответственно имеет право только класс Move.
-end note
 @enduml
