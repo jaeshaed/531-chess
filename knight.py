@@ -40,6 +40,6 @@ class Knight(Piece):
         return moves
         
     def attack_squares(self):
-        """Функция список квадратов которые может атаковать фигура"""
-        return super().attack_squares()
+        """Возвращение квадрата, ведь конь ходит и атакует с одинаковыми ходами"""
+        return self.move_knight()
     
