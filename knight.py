@@ -7,6 +7,14 @@ class Knight(Piece):
     def __init__(self,color,place_at=None):
         super().__init__(color,place_at)
 
+    @property
+    def color(self):
+        return self._color
+    """Декоратор @property  позволяет обращаться 
+    к атрибутам класса как к обычным переменным, но при этом контролировать доступ к ним. 
+    Это полезно, когда необходимо выполнить какие-то 
+    дополнительные действия при получении или установке значения атрибута."""
+
 
     def move_knight(self):
         "Все возможные ходы коня"
@@ -38,8 +46,14 @@ class Knight(Piece):
                 elif dest.piece.color != self.color:
                     moves.append(dest)
         return moves
+
         
     def attack_squares(self):
         """Возвращение квадрата, ведь конь ходит и атакует с одинаковыми ходами"""
         return self.move_knight()
+
+
+    def capture_free_squares(self):
+
+
     
