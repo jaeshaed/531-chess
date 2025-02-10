@@ -80,6 +80,7 @@ abstract class Piece {
   +place_at: Square {readOnly}
   -promoted_from: Piece
   {abstract} +attackSquares(): Square[]
+  {abstract} +captures(): Square[]
   {abstract} +captureFreeMoves(): Square[]
   {abstract} +validMoves(): Square[]
   +is_black(): bool
