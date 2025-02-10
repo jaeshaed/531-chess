@@ -79,10 +79,10 @@ abstract class Piece {
   +moved: bool {readOnly}
   +place_at: Square {readOnly}
   -promoted_from: Piece
-  {abstract} +attackSquares(): Square[]
+  {abstract} +attack_squares(): Square[]
+  {abstract} +capture_free_moves(): Square[]
   {abstract} +captures(): Square[]
-  {abstract} +captureFreeMoves(): Square[]
-  {abstract} +validMoves(): Square[]
+  {abstract} +valid_moves(): Square[]
   +is_black(): bool
   +is_white(): bool
   +is_bishop(): bool
