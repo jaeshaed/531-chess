@@ -9,21 +9,18 @@ class Board {
   +white_pieces: Piece[]
   +black_pieces: Piece[]
   +clear()
-  +move_piece(): Piece
   +put_black_bishop_at(): Piece
   +put_black_king_at(): Piece
   +put_black_knight_at(): Piece
   +put_black_pawn_at(): Piece
   +put_black_queen_at(): Piece
   +put_black_rook_at(): Piece
-  +put_piece(): Piece
   +put_white_bishop_at(): Piece
   +put_white_king_at(): Piece
   +put_white_knight_at(): Piece
   +put_white_pawn_at(): Piece
   +put_white_queen_at(): Piece
   +put_white_rook_at(): Piece
-  +remove_piece(): Piece
 }
 Board "1" *-- "32" Piece
 Board "1" *-- "1" Squares
