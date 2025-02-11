@@ -47,7 +47,7 @@ class Knight(Piece):
                     moves.append(dest)
         return moves
 
-        
+
     def attack_squares(self):
         """Возвращение квадрата, ведь конь ходит и атакует с одинаковыми ходами"""
         return self.move_knight()
@@ -57,6 +57,13 @@ class Knight(Piece):
         """Возвращаем пустой список т.к.конь проходит через другие квадраты. Здесь определяются пустые клетки на которые
          может ходить фигура"""
         return []
+
+    def capture(self):
+        return []
+
+    def valid_moves(self):
+        return self.place_at+self.capture_free_squares
+
 
 
     
