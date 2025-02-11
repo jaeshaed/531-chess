@@ -1,3 +1,5 @@
+from deep_translator.validate import is_empty
+
 from piece import Piece
 """Импорт из файла Piece"""
 
@@ -37,15 +39,14 @@ class Knight(Piece):
         return moves
 
     def capture_free_squares(self):
-        """Возвращаем пустой список т.к.конь проходит через другие квадраты. Здесь определяются пустые клетки на которые
-         может ходить фигура"""
-        return []
+        """Проверяем"""
+        return [(self.place_at.file + 1, self.place_at.rank + 2),is_empty()]
 
-    def capture(self):
+    def captures(self):
         return []
 
     def valid_moves(self):
-        return self.place_at+self.capture_free_squares
+        return self.place_at+self.captures
 
 
 
