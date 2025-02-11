@@ -61,7 +61,15 @@ class Bishop(Piece):
                 x += 1
                 y -= 1
 
+        def valid_moves(self):
+            return self.capture_free_moves() + self.capture()
 
+        def captures(self):
+            captures = []
+            for square in self.attack_squares():
+                if not square.is_empty():
+                    captures.append(square)
+                    return captures
 
         return moves
 
