@@ -12,7 +12,27 @@ class Pawn(Piece):
         return self._promoted_to is not None
 
     def is_pawn(self):
-        return True 
+        return True
+    
+    def is_bishop(self):
+        if self._promoted_to == PieceType.BISHOP:
+            return True
+        return False
+    
+    def is_rook(self):
+        if self._promoted_to == PieceType.ROOK:
+            return True
+        return False
+    
+    def is_queen(self):
+        if self._promoted_to == PieceType.QUEEN:
+            return True
+        return False
+    
+    def is_knight(self):
+        if self._promoted_to == PieceType.KNIGHT:
+            return True
+        return False
     
     def promoted_to(self, piece_type):
         assert isinstance(piece_type, PieceType)
