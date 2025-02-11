@@ -16,21 +16,12 @@ class Knight(Piece):
     дополнительные действия при получении или установке значения атрибута."""
 
 
-    def move_knight(self):
-        "Все возможные ходы коня"
-
-        # offsets = [ (x+2,y+1),
-        #         (x+2,y-1),
-        #         (x-2,y+1),
-        #         (x-2,y-1),
-        #         (x+1,y+2),
-        #         (x+1,y-2),
-        #         (x-1,y+2),
-        #         (x-1,y-2)
-        #         ]
-
+        
+    def attack_squares(self):
+        """Возвращение квадрата, ведь конь ходит и атакует с одинаковыми ходами"""
         moves = []
-        """Проверка возможности хода"""
+        # initial_square = self.place_at
+        # check_square = self.place_at.up.up.right.is_empty()
         if self.place_at.file < 6:
             if self.place_at.rank < 7:
                 dest = self.game.board.squares[self.place_at + 2][self.place_at + 1],
@@ -47,16 +38,25 @@ class Knight(Piece):
                     moves.append(dest)
         return moves
 
-        
-    def attack_squares(self):
-        """Возвращение квадрата, ведь конь ходит и атакует с одинаковыми ходами"""
-        return self.move_knight()
-
+    def captures(self):
+        #return [square for square in self.attack_squares() if not square.is_empty()]
+        captures = []
+        for square in self.attack_squares():
+            if not square.is_empty():
+                captures.append(square)
+        return captures
 
     def capture_free_squares(self):
         """Возвращаем пустой список т.к.конь проходит через другие квадраты. Здесь определяются пустые клетки на которые
          может ходить фигура"""
+        
         return []
+    
+    def valid_moves(self):
+        return self.capture_free_moves() + self.captures()
+  
+
+
 
 
     
