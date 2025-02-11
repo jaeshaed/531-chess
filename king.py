@@ -71,9 +71,3 @@ class King(Piece):
                     moves.append(Square(current_row, 2))
 
         return moves
-
-    #Метод для проверки, находится ли король под шахом
-    def is_in_check(self, board) -> bool:
-        #Реализация зависит от структуры класса Board
-        #Нужно проверить все вражеские фигуры и их атакующие клетки
-        pass
