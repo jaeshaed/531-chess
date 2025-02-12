@@ -1,7 +1,10 @@
+"""Этот модуль проверяет правильность работы класса Pawn."""
+
 import unittest
 
 
 class TestWhitePawnInheritedTraits(unittest.TestCase):
+    """Проверки основных (унаследованных от Piece) свойств и методов белой пешки."""
 
     def setUp(self):
         from board import Board
@@ -66,6 +69,7 @@ class TestWhitePawnInheritedTraits(unittest.TestCase):
 
 
 class TestBlackPawnColor(unittest.TestCase):
+    """Проверки свойства color чёрной пешки."""
 
     def setUp(self):
         from board import Board
@@ -90,6 +94,7 @@ class TestBlackPawnColor(unittest.TestCase):
 
 
 class TestWhitePawnAtInitialPosition(unittest.TestCase):
+    """Проверки ходов и свойств белой пешки в начальной позиции."""
 
     def setUp(self):
         from board import Board
@@ -97,7 +102,8 @@ class TestWhitePawnAtInitialPosition(unittest.TestCase):
         self.pawn = self.board.put_white_pawn_at('f2')
 
     def test_valid_moves(self):
-        self.assertCountEqual(self.pawn.valid_moves(), [self.board.squares.f3, self.board.squares.f4])
+        valid_moves = [self.board.squares.f3, self.board.squares.f4]
+        self.assertCountEqual(self.pawn.valid_moves(), valid_moves)
 
     def test_capture_free_moves(self):
         self.assertCountEqual(self.pawn.capture_free_moves(), self.board.squares['f3,f4'])
@@ -132,6 +138,7 @@ class TestWhitePawnAtInitialPosition(unittest.TestCase):
 
 
 class TestBlackPawnAtInitialPosition(unittest.TestCase):
+    """Проверки ходов и свойств чёрной пешки в начальной позиции."""
 
     def setUp(self):
         from board import Board
@@ -172,6 +179,7 @@ class TestBlackPawnAtInitialPosition(unittest.TestCase):
 
 
 class TestWhitePawnPromotionBasics(unittest.TestCase):
+    """Проверки превращения белой пешки."""
 
     def setUp(self):
         from board import Board
@@ -213,6 +221,7 @@ class TestWhitePawnPromotionBasics(unittest.TestCase):
 
 
 class TestBlackPawnPromotionBasics(unittest.TestCase):
+    """Проверки превращения чёрной пешки."""
 
     def setUp(self):
         from board import Board
@@ -232,6 +241,7 @@ class TestBlackPawnPromotionBasics(unittest.TestCase):
 
 
 class TestWhitePawnPromotionToBishop(unittest.TestCase):
+    """Проверки превращения белой пешки в слона."""
 
     def setUp(self):
         from board import Board
@@ -282,7 +292,9 @@ class TestWhitePawnPromotionToBishop(unittest.TestCase):
     def test_attack_squares(self):
         self.assertCountEqual(self.pawn.attack_squares(), self.board.squares['a7,c7,d6'])
 
+
 class TestBlackPawnPromotionToKnight(unittest.TestCase):
+    """Проверки превращения чёрной пешки в коня."""
 
     def setUp(self):
         from board import Board
@@ -336,6 +348,7 @@ class TestBlackPawnPromotionToKnight(unittest.TestCase):
 
 
 class TestWhitePawnPromotionToQueen(unittest.TestCase):
+    """Проверки превращения белой пешки в ферзя."""
 
     def setUp(self):
         from board import Board
@@ -394,6 +407,7 @@ class TestWhitePawnPromotionToQueen(unittest.TestCase):
 
 
 class TestBlackPawnPromotionToRook(unittest.TestCase):
+    """Проверки превращения чёрной пешки в ладью."""
 
     def setUp(self):
         from board import Board
@@ -435,19 +449,23 @@ class TestBlackPawnPromotionToRook(unittest.TestCase):
         self.assertTrue(self.pawn.is_rook())
 
     def test_valid_moves(self):
-        self.assertCountEqual(self.pawn.valid_moves(), self.board.squares['a1,b1,c1,d1,e2,e3,e4,e5,e6,e7,e8'])
+        valid_moves = self.board.squares['a1,b1,c1,d1,e2,e3,e4,e5,e6,e7,e8']
+        self.assertCountEqual(self.pawn.valid_moves(), valid_moves)
 
     def test_capture_free_moves(self):
-        self.assertCountEqual(self.pawn.capture_free_moves(), self.board.squares['b1,c1,d1,e2,e3,e4,e5,e6,e7,e8'])
+        capture_free_moves = self.board.squares['b1,c1,d1,e2,e3,e4,e5,e6,e7,e8']
+        self.assertCountEqual(self.pawn.capture_free_moves(), capture_free_moves)
 
     def test_captures(self):
         self.assertCountEqual(self.pawn.captures(), [self.board.squares.a1])
 
     def test_attack_squares(self):
-        self.assertCountEqual(self.pawn.attack_squares(), self.board.squares['a1,b1,c1,d1,e2,e3,e4,e5,e6,e7,e8'])
+        attack_squares = self.board.squares['a1,b1,c1,d1,e2,e3,e4,e5,e6,e7,e8']
+        self.assertCountEqual(self.pawn.attack_squares(), attack_squares)
 
 
 class TestWhitePawnEnPassantCapture(unittest.TestCase):
+    """Проверки взятия белой пешкой на проходе."""
 
     def setUp(self):
         from board import Board
@@ -481,6 +499,7 @@ class TestWhitePawnEnPassantCapture(unittest.TestCase):
 
 
 class TestBlackPawnEnPassantCapture(unittest.TestCase):
+    """Проверки взятия чёрной пешкой на проходе."""
 
     def setUp(self):
         from board import Board
@@ -515,4 +534,3 @@ class TestBlackPawnEnPassantCapture(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

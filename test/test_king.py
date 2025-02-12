@@ -1,7 +1,10 @@
+"""Этот модуль проверяет правильность работы класса King."""
+
 import unittest
 
 
 class TestWhiteKingInheritedTraits(unittest.TestCase):
+    """Проверки основных (унаследованных от Piece) свойств и методов белого короля."""
 
     def setUp(self):
         from board import Board
@@ -70,6 +73,7 @@ class TestWhiteKingInheritedTraits(unittest.TestCase):
 
 
 class TestBlackKingColor(unittest.TestCase):
+    """Проверки свойства color чёрного короля."""
 
     def setUp(self):
         from board import Board
@@ -94,6 +98,7 @@ class TestBlackKingColor(unittest.TestCase):
 
 
 class TestWhiteKingMoves(unittest.TestCase):
+    """Проверки ходов белого короля."""
 
     def setUp(self):
         from board import Board
@@ -115,16 +120,19 @@ class TestWhiteKingMoves(unittest.TestCase):
         self.assertCountEqual(self.king.valid_moves(), self.board.squares['c4,d3,d2,c2,b2,b3,b4'])
 
     def test_capture_free_moves(self):
-        self.assertCountEqual(self.king.capture_free_moves(), self.board.squares['c4,d3,d2,c2,b3,b4'])
+        capture_free_moves = self.board.squares['c4,d3,d2,c2,b3,b4']
+        self.assertCountEqual(self.king.capture_free_moves(), capture_free_moves)
 
     def test_captures(self):
         self.assertCountEqual(self.king.captures(), [self.board.squares['b2']])
 
     def test_attack_squares(self):
-        self.assertCountEqual(self.king.attack_squares(), self.board.squares['c4,d3,d2,c2,b2,b3,b4'])
+        attack_squares = self.board.squares['c4,d3,d2,c2,b2,b3,b4']
+        self.assertCountEqual(self.king.attack_squares(), attack_squares)
 
 
 class TestWhiteKingCastling(unittest.TestCase):
+    """Проверки рокировок белого короля."""
 
     def setUp(self):
         from board import Board
@@ -145,7 +153,8 @@ class TestWhiteKingCastling(unittest.TestCase):
         self.assertCountEqual(self.king.valid_moves(), self.board.squares['c1,d1,d2,e2,f2,f1,g1'])
 
     def test_capture_free_moves(self):
-        self.assertCountEqual(self.king.capture_free_moves(), self.board.squares['c1,d1,d2,e2,f2,f1,g1'])
+        capture_free_moves = self.board.squares['c1,d1,d2,e2,f2,f1,g1']
+        self.assertCountEqual(self.king.capture_free_moves(), capture_free_moves)
 
     def test_captures(self):
         self.assertCountEqual(self.king.captures(), [])
@@ -245,6 +254,7 @@ class TestWhiteKingCastling(unittest.TestCase):
 
 
 class TestBlackKingCastling(unittest.TestCase):
+    """Проверки рокировок чёрного короля."""
 
     def setUp(self):
         from board import Board
@@ -265,7 +275,8 @@ class TestBlackKingCastling(unittest.TestCase):
         self.assertCountEqual(self.king.valid_moves(), self.board.squares['c8,d8,d7,e7,f7,f8,g8'])
 
     def test_capture_free_moves(self):
-        self.assertCountEqual(self.king.capture_free_moves(), self.board.squares['c8,d8,d7,e7,f7,f8,g8'])
+        capture_free_moves = self.board.squares['c8,d8,d7,e7,f7,f8,g8']
+        self.assertCountEqual(self.king.capture_free_moves(), capture_free_moves)
 
     def test_captures(self):
         self.assertCountEqual(self.king.captures(), [])
@@ -362,4 +373,3 @@ class TestBlackKingCastling(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
