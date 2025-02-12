@@ -102,8 +102,11 @@ class TestWhitePawnAtInitialPosition(unittest.TestCase):
     def test_capture_free_moves(self):
         self.assertCountEqual(self.pawn.capture_free_moves(), self.board.squares['f3,f4'])
 
+    def test_captures(self):
+        self.assertCountEqual(self.pawn.captures(), [])
+
     def test_attack_squares(self):
-        self.assertCountEqual(self.pawn.attack_squares(), [])
+        self.assertCountEqual(self.pawn.attack_squares(), self.board.squares['e3,g3'])
 
     def test_move_direction_is_up(self):
         from pawn import MoveDirection
@@ -152,6 +155,9 @@ class TestBlackPawnAtInitialPosition(unittest.TestCase):
 
     def test_capture_free_moves(self):
         self.assertCountEqual(self.pawn.capture_free_moves(), [self.board.squares.G6])
+
+    def test_captures(self):
+        self.assertCountEqual(self.pawn.captures(), self.board.squares['F6,H6'])
 
     def test_attack_squares(self):
         self.assertCountEqual(self.pawn.attack_squares(), self.board.squares['F6,H6'])
@@ -270,9 +276,11 @@ class TestWhitePawnPromotionToBishop(unittest.TestCase):
     def test_capture_free_moves(self):
         self.assertCountEqual(self.pawn.capture_free_moves(), self.board.squares['a7,c7'])
 
-    def test_attack_squares(self):
-        self.assertCountEqual(self.pawn.attack_squares(), [self.board.squares.d6])
+    def test_captures(self):
+        self.assertCountEqual(self.pawn.captures(), [self.board.squares.d6])
 
+    def test_attack_squares(self):
+        self.assertCountEqual(self.pawn.attack_squares(), self.board.squares['a7,c7,d6'])
 
 class TestBlackPawnPromotionToKnight(unittest.TestCase):
 
@@ -320,8 +328,11 @@ class TestBlackPawnPromotionToKnight(unittest.TestCase):
     def test_capture_free_moves(self):
         self.assertCountEqual(self.pawn.capture_free_moves(), self.board.squares['a2,d3'])
 
+    def test_captures(self):
+        self.assertCountEqual(self.pawn.captures(), [self.board.squares.e2])
+
     def test_attack_squares(self):
-        self.assertCountEqual(self.pawn.attack_squares(), [self.board.squares.e2])
+        self.assertCountEqual(self.pawn.attack_squares(), self.board.squares['a2,d3,e2'])
 
 
 class TestWhitePawnPromotionToQueen(unittest.TestCase):
@@ -374,9 +385,12 @@ class TestWhitePawnPromotionToQueen(unittest.TestCase):
         capture_free_moves = self.board.squares['a8,b8,c8,e8,f8,g8,c7,e7,f6,d7,d6,d5,d4,d3,d2']
         self.assertCountEqual(self.pawn.capture_free_moves(), capture_free_moves)
 
-    def test_attack_squares(self):
-        self.assertCountEqual(self.pawn.attack_squares(), self.board.squares['b6,h8,g5'])
+    def test_captures(self):
+        self.assertCountEqual(self.pawn.captures(), self.board.squares['b6,h8,g5'])
 
+    def test_attack_squares(self):
+        attack_squares = self.board.squares['a8,b8,c8,e8,f8,g8,h8,b6,c7,e7,f6,g5,d7,d6,d5,d4,d3,d2']
+        self.assertCountEqual(self.pawn.attack_squares(), attack_squares)
 
 
 class TestBlackPawnPromotionToRook(unittest.TestCase):
@@ -426,8 +440,11 @@ class TestBlackPawnPromotionToRook(unittest.TestCase):
     def test_capture_free_moves(self):
         self.assertCountEqual(self.pawn.capture_free_moves(), self.board.squares['b1,c1,d1,e2,e3,e4,e5,e6,e7,e8'])
 
+    def test_captures(self):
+        self.assertCountEqual(self.pawn.captures(), [self.board.squares.a1])
+
     def test_attack_squares(self):
-        self.assertCountEqual(self.pawn.attack_squares(), [self.board.squares.a1])
+        self.assertCountEqual(self.pawn.attack_squares(), self.board.squares['a1,b1,c1,d1,e2,e3,e4,e5,e6,e7,e8'])
 
 
 class TestWhitePawnEnPassantCapture(unittest.TestCase):
@@ -453,8 +470,11 @@ class TestWhitePawnEnPassantCapture(unittest.TestCase):
     def test_white_pawn_has_not(self):
         self.assertFalse(self.white_pawn.double_step)
 
-    def test_white_pawn_attack_squares(self):
-        self.assertCountEqual(self.white_pawn.attack_squares(), [self.board.squares.g6])
+    def test_white_pawn_captures(self):
+        self.assertCountEqual(self.white_pawn.captures(), [self.board.squares.g6])
+
+    def test_white_attack_squares(self):
+        self.assertCountEqual(self.white_pawn.attack_squares(), self.board.squares['e6,g6'])
 
     def test_white_pawn_valid_moves(self):
         self.assertCountEqual(self.white_pawn.valid_moves(), self.board.squares['f6,g6'])
@@ -483,8 +503,11 @@ class TestBlackPawnEnPassantCapture(unittest.TestCase):
     def test_black_pawn_has_not(self):
         self.assertFalse(self.black_pawn.double_step)
 
+    def test_black_pawn_captures(self):
+        self.assertCountEqual(self.black_pawn.captures(), [self.board.squares.g3])
+
     def test_black_pawn_attack_squares(self):
-        self.assertCountEqual(self.black_pawn.attack_squares(), [self.board.squares.g3])
+        self.assertCountEqual(self.black_pawn.attack_squares(), [self.board.squares['g3']])
 
     def test_black_pawn_valid_moves(self):
         self.assertCountEqual(self.black_pawn.valid_moves(), self.board.squares['h3,g3'])

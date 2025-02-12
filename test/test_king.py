@@ -120,6 +120,9 @@ class TestWhiteKingMoves(unittest.TestCase):
     def test_captures(self):
         self.assertCountEqual(self.king.captures(), [self.board.squares['b2']])
 
+    def test_attack_squares(self):
+        self.assertCountEqual(self.king.attack_squares(), self.board.squares['c4,d3,d2,c2,b2,b3,b4'])
+
 
 class TestWhiteKingCastling(unittest.TestCase):
 
@@ -146,6 +149,10 @@ class TestWhiteKingCastling(unittest.TestCase):
 
     def test_captures(self):
         self.assertCountEqual(self.king.captures(), [])
+
+    def test_attack_squares(self):
+        self.assertCountEqual(self.king.attack_squares(), self.board.squares['d1,d2,e2,f2,f1'])
+
 
     def test_cannot_castle_after_king_moves(self):
         self.king.move_to('e2')
