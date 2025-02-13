@@ -1,3 +1,5 @@
+"""Этот модуль проверяет правильность работы класса Square."""
+
 import unittest
 import unittest.mock
 
@@ -5,6 +7,7 @@ from square import Square
 
 
 class TestSquareB4(unittest.TestCase):
+    """Проверки поля b4."""
 
     def setUp(self):
         all_squares = unittest.mock.Mock()
@@ -16,7 +19,7 @@ class TestSquareB4(unittest.TestCase):
     def test_file_is_read_only(self):
         with self.assertRaises(AttributeError):
             self.square.file = 'g'
-        assertEqual(self.square.file, 'b')
+        self.assertEqual(self.square.file, 'b')
 
     def test_rank_is_correct(self):
         self.assertEqual(self.square.rank, '4')
@@ -24,7 +27,7 @@ class TestSquareB4(unittest.TestCase):
     def test_rank_is_read_only(self):
         with self.assertRaises(AttributeError):
             self.square.rank = '8'
-        assertEqual(self.square.rank, '4')
+        self.assertEqual(self.square.rank, '4')
 
     def test_file_index_is_correct(self):
         self.assertEqual(self.square.file_index, 1)
@@ -32,7 +35,7 @@ class TestSquareB4(unittest.TestCase):
     def test_file_index_is_read_only(self):
         with self.assertRaises(AttributeError):
             self.square.file_index = 3
-        assertEqual(self.square.file_index, 1)
+        self.assertEqual(self.square.file_index, 1)
 
     def test_rank_index_is_correct(self):
         self.assertEqual(self.square.rank_index, 3)
@@ -40,7 +43,7 @@ class TestSquareB4(unittest.TestCase):
     def test_rank_index_is_read_only(self):
         with self.assertRaises(AttributeError):
             self.square.rank_index = 4
-        assertEqual(self.square.rank_index, 3)
+        self.assertEqual(self.square.rank_index, 3)
 
     def test_square_color(self):
         from color import Color
@@ -87,6 +90,7 @@ class TestSquareB4(unittest.TestCase):
 
 
 class TestSquareA1(unittest.TestCase):
+    """Проверки поля a1."""
 
     def setUp(self):
         all_squares = unittest.mock.Mock()
@@ -122,6 +126,7 @@ class TestSquareA1(unittest.TestCase):
 
 
 class TestSquareF1(unittest.TestCase):
+    """Проверки поля f1."""
 
     def setUp(self):
         all_squares = unittest.mock.Mock()
@@ -157,6 +162,7 @@ class TestSquareF1(unittest.TestCase):
 
 
 class TestSquareH8(unittest.TestCase):
+    """Проверки поля h8."""
 
     def setUp(self):
         all_squares = unittest.mock.Mock()
