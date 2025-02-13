@@ -114,8 +114,10 @@ enum PieceType {
 class Square {
   -all_squares: Squares
   +color: Color {readOnly}
-  +file: int {readOnly}
-  +rank: int {readOnly}
+  +file: str {readOnly}
+  +rank: str {readOnly}
+  +file_index: int {readOnly}
+  +rank_index: int {readOnly}
   +piece: Piece
   +down: Square {readOnly}
   +left: Square {readOnly}
