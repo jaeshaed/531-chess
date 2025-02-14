@@ -197,5 +197,29 @@ class TestSquareH8(unittest.TestCase):
         self.assertTrue(self.square.up.is_off_board())
 
 
+class TestOffBoardSquares(unittest.TestCase):
+    """Проверки выхода за пределы доски."""
+
+    def setUp(self):
+        all_squares = unittest.mock.Mock()
+        self.initial_square = Square(all_squares, 0, 0)
+
+    def test_square_below_has_no_rank(self):
+        self.assertIsNone(self.initial_square.down.rank)
+
+    def test_square_below_has_the_same_file(self):
+        self.assertEqual(self.initial_square.file, self.initial_square.down.file)
+
+    def test_square_on_the_left_has_no_file(self):
+        self.assertIsNone(self.initial_square.left.file)
+
+    def test_square_on_the_left_has_the_same_rank(self):
+        self.assertEqual(self.initial_square.rank, self.initial_square.left.rank)
+
+    def test_down_left_square_has_neither_file_nor_rank(self):
+        self.assertIsNone(self.initial_square.down.left.file)
+        self.assertIsNone(self.initial_square.down.left.rank)
+
+
 if __name__ == '__main__':
     unittest.main()
