@@ -210,15 +210,27 @@ class TestOffBoardSquares(unittest.TestCase):
     def test_square_below_has_the_same_file(self):
         self.assertEqual(self.initial_square.file, self.initial_square.down.file)
 
+    def test_square_below_indices(self):
+        self.assertEqual(self.initial_square.down.file_index, 0)
+        self.assertEqual(self.initial_square.down.rank_index, -1)
+
     def test_square_on_the_left_has_no_file(self):
         self.assertIsNone(self.initial_square.left.file)
 
     def test_square_on_the_left_has_the_same_rank(self):
         self.assertEqual(self.initial_square.rank, self.initial_square.left.rank)
 
+    def test_square_on_the_left_indices(self):
+        self.assertEqual(self.initial_square.left.file_index, -1)
+        self.assertEqual(self.initial_square.left.rank_index, 0)
+
     def test_down_left_square_has_neither_file_nor_rank(self):
         self.assertIsNone(self.initial_square.down.left.file)
         self.assertIsNone(self.initial_square.down.left.rank)
+
+    def test_down_left_square_indices(self):
+        self.assertEqual(self.initial_square.down.left.file_index, -1)
+        self.assertEqual(self.initial_square.down.left.rank_index, -1)
 
 
 if __name__ == '__main__':
