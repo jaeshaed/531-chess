@@ -224,6 +224,16 @@ class TestOffBoardSquares(unittest.TestCase):
         self.assertEqual(self.initial_square.left.file_index, -1)
         self.assertEqual(self.initial_square.left.rank_index, 0)
 
+    def test_double_left_square_has_no_file(self):
+        self.assertIsNone(self.initial_square.left.left.file)
+
+    def test_double_left_square_has_the_same_rank(self):
+        self.assertEqual(self.initial_square.rank, self.initial_square.left.left.rank)
+
+    def test_double_left_square_indices(self):
+        self.assertEqual(self.initial_square.left.left.file_index, -2)
+        self.assertEqual(self.initial_square.left.left.rank_index, 0)
+
     def test_down_left_square_has_neither_file_nor_rank(self):
         self.assertIsNone(self.initial_square.down.left.file)
         self.assertIsNone(self.initial_square.down.left.rank)
