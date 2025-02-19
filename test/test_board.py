@@ -1,5 +1,6 @@
 """Этот модуль проверяет правильность работы класса Board."""
 
+import itertools
 import unittest
 
 from board import Board
@@ -24,6 +25,16 @@ class TestBoard(unittest.TestCase):
 
     def test_squares_are_false_when_the_board_is_empty(self):
         self.assertFalse(self.board.squares)
+
+    def test_squares_iteration(self):
+        square_coords = itertools.product('abcdefgh', '12345678')
+        for square in self.board.squares:
+            expected_file, expected_rank = next(square_coords)
+            with self.subTest(square=expected_file+expected_rank):
+                self.assertEqual(square.file, expected_file)
+                self.assertEqual(square.rank, expected_rank)
+        with self.assertRaises(StopIteration):
+            next(square_coords)
 
 
 if __name__ == '__main__':
