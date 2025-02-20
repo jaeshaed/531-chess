@@ -1,7 +1,6 @@
 """Этот модуль проверяет правильность работы класса Square."""
 
 import unittest
-import unittest.mock
 
 from square import Square
 
@@ -10,8 +9,8 @@ class TestSquareB4(unittest.TestCase):
     """Проверки поля b4."""
 
     def setUp(self):
-        all_squares = unittest.mock.Mock()
-        self.square = Square(all_squares, 1, 3)
+        from board import Squares
+        self.square = Square(Squares(), 1, 3)
 
     def test_file_is_correct(self):
         self.assertEqual(self.square.file, 'b')
@@ -93,8 +92,8 @@ class TestSquareA1(unittest.TestCase):
     """Проверки поля a1."""
 
     def setUp(self):
-        all_squares = unittest.mock.Mock()
-        self.square = Square(all_squares, 0, 0)
+        from board import Squares
+        self.square = Square(Squares(), 0, 0)
 
     def test_square_color(self):
         from color import Color
@@ -129,8 +128,8 @@ class TestSquareF1(unittest.TestCase):
     """Проверки поля f1."""
 
     def setUp(self):
-        all_squares = unittest.mock.Mock()
-        self.square = Square(all_squares, 5, 0)
+        from board import Squares
+        self.square = Square(Squares(), 5, 0)
 
     def test_square_color(self):
         from color import Color
@@ -165,8 +164,8 @@ class TestSquareH8(unittest.TestCase):
     """Проверки поля h8."""
 
     def setUp(self):
-        all_squares = unittest.mock.Mock()
-        self.square = Square(all_squares, 7, 7)
+        from board import Squares
+        self.square = Square(Squares(), 7, 7)
 
     def test_square_color(self):
         from color import Color
@@ -201,8 +200,8 @@ class TestOffBoardSquares(unittest.TestCase):
     """Проверки выхода за пределы доски."""
 
     def setUp(self):
-        all_squares = unittest.mock.Mock()
-        self.initial_square = Square(all_squares, 0, 0)
+        from board import Squares
+        self.initial_square = Square(Squares(), 0, 0)
 
     def test_square_below_has_no_rank(self):
         self.assertIsNone(self.initial_square.down.rank)
