@@ -22,6 +22,16 @@ class TestBoard(unittest.TestCase):
     def test_board_has_64_squares(self):
         self.assertEqual(len(self.board.squares), 64)
 
+    def test_getting_square_by_attr(self):
+        square = self.board.squares.e5
+        self.assertEqual(square.file, 'e')
+        self.assertEqual(square.rank, '5')
+
+    def test_getting_square_by_item(self):
+        square = self.board.squares['d4']
+        self.assertEqual(square.file, 'd')
+        self.assertEqual(square.rank, '4')
+
     def test_squares_are_false_when_the_board_is_empty(self):
         self.assertFalse(self.board.squares)
 
