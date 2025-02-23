@@ -5,8 +5,8 @@ import unittest
 from board import Board
 
 
-class TestBoard(unittest.TestCase):
-    """Проверки шахматной доски."""
+class TestEmptyBoard(unittest.TestCase):
+    """Проверки пустой шахматной доски."""
 
     def setUp(self):
         self.board = Board()
@@ -60,6 +60,104 @@ class TestBoard(unittest.TestCase):
                 expected_file, expected_rank = square_coords
                 self.assertEqual(square.file, expected_file)
                 self.assertEqual(square.rank, expected_rank)
+
+
+class TestBoardInInitialPosition(unittest.TestCase):
+    """Проверки шахматной доски в начальной позиции для игры."""
+
+    def setUp(self):
+        self.board = Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+
+    def test_black_queenside_rook(self):
+        self.assertTrue(self.board.squares.a8.piece.is_black())
+        self.assertTrue(self.board.squares.a8.piece.is_rook())
+        self.assertFalse(self.board.squares.a8.piece.moved)
+
+    def test_black_queenside_knight(self):
+        self.assertTrue(self.board.squares.b8.piece.is_black())
+        self.assertTrue(self.board.squares.b8.piece.is_knight())
+
+    def test_black_queenside_bishop(self):
+        self.assertTrue(self.board.squares.c8.piece.is_black())
+        self.assertTrue(self.board.squares.c8.piece.is_bishop())
+
+    def test_black_queen(self):
+        self.assertTrue(self.board.squares.d8.piece.is_black())
+        self.assertTrue(self.board.squares.d8.piece.is_queen())
+
+    def test_black_king(self):
+        self.assertTrue(self.board.squares.e8.piece.is_black())
+        self.assertTrue(self.board.squares.e8.piece.is_king())
+        self.assertFalse(self.board.squares.e8.piece.moved)
+
+    def test_black_kingside_bishop(self):
+        self.assertTrue(self.board.squares.f8.piece.is_black())
+        self.assertTrue(self.board.squares.f8.piece.is_bishop())
+
+    def test_black_kingside_knight(self):
+        self.assertTrue(self.board.squares.g8.piece.is_black())
+        self.assertTrue(self.board.squares.g8.piece.is_knight())
+
+    def test_black_kingside_rook(self):
+        self.assertTrue(self.board.squares.h8.piece.is_black())
+        self.assertTrue(self.board.squares.h8.piece.is_rook())
+        self.assertFalse(self.board.squares.h8.piece.moved)
+
+    def test_black_pawns(self):
+        for at in 'a7', 'b7', 'c7', 'd7', 'e7', 'f7', 'g7', 'h7':
+            with self.subTest(square=at):
+                self.assertTrue(self.board.squares[at].piece.is_black())
+                self.assertTrue(self.board.squares[at].piece.is_pawn())
+                self.assertFalse(self.board.squares[at].piece.moved)
+
+    def test_empty_squares(self):
+        for rank in '6543':
+            for file in 'abcdefgh':
+                at = file + rank
+                with self.subTest(square=at):
+                    self.assertTrue(self.board.squares[at].is_empty())
+
+    def test_white_pawns(self):
+        for at in 'a2', 'b2', 'c2', 'd2', 'e2', 'f2', 'g2', 'h2':
+            with self.subTest(square=at):
+                self.assertTrue(self.board.squares[at].piece.is_white())
+                self.assertTrue(self.board.squares[at].piece.is_pawn())
+                self.assertFalse(self.board.squares[at].piece.moved)
+
+    def test_white_queenside_rook(self):
+        self.assertTrue(self.board.squares.a1.piece.is_white())
+        self.assertTrue(self.board.squares.a1.piece.is_rook())
+        self.assertFalse(self.board.squares.a1.piece.moved)
+
+    def test_white_queenside_knight(self):
+        self.assertTrue(self.board.squares.b1.piece.is_white())
+        self.assertTrue(self.board.squares.b1.piece.is_knight())
+
+    def test_white_queenside_bishop(self):
+        self.assertTrue(self.board.squares.c1.piece.is_white())
+        self.assertTrue(self.board.squares.c1.piece.is_bishop())
+
+    def test_white_queen(self):
+        self.assertTrue(self.board.squares.d1.piece.is_white())
+        self.assertTrue(self.board.squares.d1.piece.is_queen())
+
+    def test_white_king(self):
+        self.assertTrue(self.board.squares.e1.piece.is_white())
+        self.assertTrue(self.board.squares.e1.piece.is_king())
+        self.assertFalse(self.board.squares.e1.piece.moved)
+
+    def test_white_kingside_bishop(self):
+        self.assertTrue(self.board.squares.f1.piece.is_white())
+        self.assertTrue(self.board.squares.f1.piece.is_bishop())
+
+    def test_white_kingside_knight(self):
+        self.assertTrue(self.board.squares.g1.piece.is_white())
+        self.assertTrue(self.board.squares.g1.piece.is_knight())
+
+    def test_white_kingside_rook(self):
+        self.assertTrue(self.board.squares.h1.piece.is_white())
+        self.assertTrue(self.board.squares.h1.piece.is_rook())
+        self.assertFalse(self.board.squares.h1.piece.moved)
 
 
 if __name__ == '__main__':
