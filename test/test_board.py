@@ -61,6 +61,11 @@ class TestEmptyBoard(unittest.TestCase):
                 self.assertEqual(square.file, expected_file)
                 self.assertEqual(square.rank, expected_rank)
 
+    def test_impossibility_of_putting_piece_at_offboard_square(self):
+        offboard_square = self.board.squares['a1'].down.left
+        with self.assertRaises((RuntimeError, ValueError)):
+            self.board.put_white_pawn_at(offboard_square)
+
 
 class TestBoardInInitialPosition(unittest.TestCase):
     """Проверки шахматной доски в начальной позиции для игры."""
