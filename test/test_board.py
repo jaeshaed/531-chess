@@ -164,6 +164,20 @@ class TestBoardInInitialPosition(unittest.TestCase):
         self.assertTrue(self.board.squares.h1.piece.is_rook())
         self.assertFalse(self.board.squares.h1.piece.moved)
 
+    def test_list_of_white_pieces_is_immutable(self):
+        white_pieces = self.board.white_pieces
+        self.assertEqual(len(white_pieces), 16)
+        with self.assertRaises(AttributeError):
+            white_pieces.pop()
+        self.assertEqual(len(white_pieces), 16)
+
+    def test_list_of_black_pieces_is_immutable(self):
+        black_pieces = self.board.black_pieces
+        self.assertEqual(len(black_pieces), 16)
+        with self.assertRaises(AttributeError):
+            black_pieces.pop()
+        self.assertEqual(len(black_pieces), 16)
+
 
 if __name__ == '__main__':
     unittest.main()
