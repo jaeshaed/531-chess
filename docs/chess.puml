@@ -38,7 +38,7 @@ enum Color {
 class Game {
   -played_moves: Move[]
   +turn: Color {readOnly}
-  +add_move(from: Square, to: Square)
+  +add_move(move: Move)
   +is_over()
 }
 Game --> Color
