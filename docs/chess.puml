@@ -8,6 +8,8 @@ class Board {
   +squares: Squares
   +white_pieces: Piece[]
   +black_pieces: Piece[]
+  +white_king: King
+  +black_king: King
   +clear()
   +put_black_bishop_at(): Piece
   +put_black_king_at(): Piece
@@ -38,9 +40,14 @@ enum Color {
 class Game {
   +played_moves: Move[] {readOnly}
   +turn: Color {readOnly}
-  +add_move(from: Square, to: Square)
+  +add_move(move: Move)
   +get_last_move(): Move
+  +is_move_legal(move: Move): bool
+  +is_checked(): bool
+  +is_checkmated(): bool
+  +is_draw(): bool
   +is_over(): bool
+  +final_result(): str
 }
 Game --> Color
 Game "1" *-- "1" Board
@@ -51,11 +58,14 @@ class Move {
   -end_square: Square
   -piece: Piece
   -captured_piece: Piece
-  +do(board: Board)
+  +notation {readOnly}
+  +long_notation {readOnly}
+  +iccf_notation {readOnly}
+  +do()
+  +undo()
 }
 Move --> Piece
 Move --> Square
-Move --> Board
 
 enum MoveDirection {
   {static} + UP
@@ -76,6 +86,7 @@ abstract class Piece {
   +color: Color {readOnly}
   +moved: bool {readOnly}
   +place_at: Square {readOnly}
+  -former_squares: Square[]
   -promoted_from: Piece
   {abstract} +attack_squares(): Square[]
   {abstract} +capture_free_moves(): Square[]
@@ -91,8 +102,9 @@ abstract class Piece {
   +is_rook(): bool
   +is_offboard(): bool
   +is_onboard(): bool
-  +move_to()
-  +put_at()
+  +move_back()
+  +move_to(new_place)
+  +put_at(place)
   +remove()
 }
 Piece --> Color
