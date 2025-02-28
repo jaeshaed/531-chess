@@ -58,6 +58,7 @@ class Move {
   -end_square: Square
   -piece: Piece
   -captured_piece: Piece
+  -promote_to: PieceType
   +notation {readOnly}
   +long_notation {readOnly}
   +iccf_notation {readOnly}
@@ -65,6 +66,7 @@ class Move {
   +undo()
 }
 Move --> Piece
+Move --> PieceType
 Move --> Square
 
 enum MoveDirection {
