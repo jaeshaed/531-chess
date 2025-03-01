@@ -64,6 +64,9 @@ class Move {
   +iccf_notation {readOnly}
   +do()
   +undo()
+  +is_castling(): bool
+  +is_kingside_castling(): bool
+  +is_queenside_castling(): bool
 }
 Move --> Piece
 Move --> PieceType
