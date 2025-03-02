@@ -78,7 +78,7 @@ enum MoveDirection {
 }
 
 class Pawn {
-  +double_step: bool
+  +double_step: bool {readOnly}
   +move_direction: MoveDirection {readOnly}
   +promoted: bool {readOnly}
   +promote_to(piece_type: PieceType)
