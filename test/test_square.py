@@ -1,7 +1,6 @@
 """Этот модуль проверяет правильность работы класса Square."""
 
 import unittest
-import unittest.mock
 
 from square import Square
 
@@ -10,8 +9,8 @@ class TestSquareB4(unittest.TestCase):
     """Проверки поля b4."""
 
     def setUp(self):
-        all_squares = unittest.mock.Mock()
-        self.square = Square(all_squares, 1, 3)
+        from board import Squares
+        self.square = Square(Squares(), 1, 3)
 
     def test_file_is_correct(self):
         self.assertEqual(self.square.file, 'b')
@@ -93,8 +92,8 @@ class TestSquareA1(unittest.TestCase):
     """Проверки поля a1."""
 
     def setUp(self):
-        all_squares = unittest.mock.Mock()
-        self.square = Square(all_squares, 0, 0)
+        from board import Squares
+        self.square = Square(Squares(), 0, 0)
 
     def test_square_color(self):
         from color import Color
@@ -129,8 +128,8 @@ class TestSquareF1(unittest.TestCase):
     """Проверки поля f1."""
 
     def setUp(self):
-        all_squares = unittest.mock.Mock()
-        self.square = Square(all_squares, 5, 0)
+        from board import Squares
+        self.square = Square(Squares(), 5, 0)
 
     def test_square_color(self):
         from color import Color
@@ -165,8 +164,8 @@ class TestSquareH8(unittest.TestCase):
     """Проверки поля h8."""
 
     def setUp(self):
-        all_squares = unittest.mock.Mock()
-        self.square = Square(all_squares, 7, 7)
+        from board import Squares
+        self.square = Square(Squares(), 7, 7)
 
     def test_square_color(self):
         from color import Color
@@ -195,6 +194,52 @@ class TestSquareH8(unittest.TestCase):
 
     def test_up_square_is_off_board(self):
         self.assertTrue(self.square.up.is_off_board())
+
+
+class TestOffBoardSquares(unittest.TestCase):
+    """Проверки выхода за пределы доски."""
+
+    def setUp(self):
+        from board import Squares
+        self.initial_square = Square(Squares(), 0, 0)
+
+    def test_square_below_has_no_rank(self):
+        self.assertIsNone(self.initial_square.down.rank)
+
+    def test_square_below_has_the_same_file(self):
+        self.assertEqual(self.initial_square.file, self.initial_square.down.file)
+
+    def test_square_below_indices(self):
+        self.assertEqual(self.initial_square.down.file_index, 0)
+        self.assertEqual(self.initial_square.down.rank_index, -1)
+
+    def test_square_on_the_left_has_no_file(self):
+        self.assertIsNone(self.initial_square.left.file)
+
+    def test_square_on_the_left_has_the_same_rank(self):
+        self.assertEqual(self.initial_square.rank, self.initial_square.left.rank)
+
+    def test_square_on_the_left_indices(self):
+        self.assertEqual(self.initial_square.left.file_index, -1)
+        self.assertEqual(self.initial_square.left.rank_index, 0)
+
+    def test_double_left_square_has_no_file(self):
+        self.assertIsNone(self.initial_square.left.left.file)
+
+    def test_double_left_square_has_the_same_rank(self):
+        self.assertEqual(self.initial_square.rank, self.initial_square.left.left.rank)
+
+    def test_double_left_square_indices(self):
+        self.assertEqual(self.initial_square.left.left.file_index, -2)
+        self.assertEqual(self.initial_square.left.left.rank_index, 0)
+
+    def test_down_left_square_has_neither_file_nor_rank(self):
+        self.assertIsNone(self.initial_square.down.left.file)
+        self.assertIsNone(self.initial_square.down.left.rank)
+
+    def test_down_left_square_indices(self):
+        self.assertEqual(self.initial_square.down.left.file_index, -1)
+        self.assertEqual(self.initial_square.down.left.rank_index, -1)
 
 
 if __name__ == '__main__':

@@ -136,6 +136,12 @@ class TestWhitePawnAtInitialPosition(unittest.TestCase):
         self.pawn.move_to('f4')
         self.assertTrue(self.pawn.moved)
 
+    def test_double_step_is_read_only(self):
+        self.assertFalse(self.pawn.double_step)
+        with self.assertRaises(AttributeError):
+            self.pawn.double_step = True
+        self.assertFalse(self.pawn.double_step)
+
 
 class TestBlackPawnAtInitialPosition(unittest.TestCase):
     """Проверки ходов и свойств чёрной пешки в начальной позиции."""
