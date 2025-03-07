@@ -16,10 +16,7 @@ class Knight(Piece):
     дополнительные действия при получении или установке значения атрибута."""
 
 
-<<<<<<< HEAD
         
-=======
->>>>>>> 122992c01b6f4cdc9399fcbf9496ba0f6bf898c7
     def attack_squares(self):
         """Возвращение квадрата, ведь конь ходит и атакует с одинаковыми ходами"""
         moves = []
@@ -41,26 +38,6 @@ class Knight(Piece):
                     moves.append(dest)
         return moves
 
-<<<<<<< HEAD
-    def captures(self):
-        #return [square for square in self.attack_squares() if not square.is_empty()]
-        captures = []
-        for square in self.attack_squares():
-            if not square.is_empty():
-                captures.append(square)
-        return captures
-
-    def capture_free_squares(self):
-        """Возвращаем пустой список т.к.конь проходит через другие квадраты. Здесь определяются пустые клетки на которые
-         может ходить фигура"""
-        
-        return []
-    
-    def valid_moves(self):
-        return self.capture_free_moves() + self.captures()
-  
-
-=======
     def capture_free_squares(self):
         """Проверяем квадраты доступные для перемещения без захвата"""
         move1=[]
@@ -83,7 +60,6 @@ class Knight(Piece):
 
     def valid_moves(self):
         return self.place_at+self.captures
->>>>>>> 122992c01b6f4cdc9399fcbf9496ba0f6bf898c7
 
 
 
