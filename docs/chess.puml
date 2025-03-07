@@ -8,22 +8,21 @@ class Board {
   +squares: Squares
   +white_pieces: Piece[]
   +black_pieces: Piece[]
+  +white_king: King
+  +black_king: King
   +clear()
-  +move_piece(): Piece
   +put_black_bishop_at(): Piece
   +put_black_king_at(): Piece
   +put_black_knight_at(): Piece
   +put_black_pawn_at(): Piece
   +put_black_queen_at(): Piece
   +put_black_rook_at(): Piece
-  +put_piece(): Piece
   +put_white_bishop_at(): Piece
   +put_white_king_at(): Piece
   +put_white_knight_at(): Piece
   +put_white_pawn_at(): Piece
   +put_white_queen_at(): Piece
   +put_white_rook_at(): Piece
-  +remove_piece(): Piece
 }
 Board "1" *-- "32" Piece
 Board "1" *-- "1" Squares
@@ -39,10 +38,16 @@ enum Color {
 }
 
 class Game {
-  -played_moves: Move[]
+  +played_moves: Move[] {readOnly}
   +turn: Color {readOnly}
-  +add_move(from: Square, to: Square)
-  +is_over()
+  +add_move(move: Move)
+  +get_last_move(): Move
+  +is_move_legal(move: Move): bool
+  +is_checked(): bool
+  +is_checkmated(): bool
+  +is_draw(): bool
+  +is_over(): bool
+  +final_result(): str
 }
 Game --> Color
 Game "1" *-- "1" Board
@@ -53,11 +58,19 @@ class Move {
   -end_square: Square
   -piece: Piece
   -captured_piece: Piece
-  +do(board: Board)
+  -promote_to: PieceType
+  +notation {readOnly}
+  +long_notation {readOnly}
+  +iccf_notation {readOnly}
+  +do()
+  +undo()
+  +is_castling(): bool
+  +is_kingside_castling(): bool
+  +is_queenside_castling(): bool
 }
 Move --> Piece
+Move --> PieceType
 Move --> Square
-Move --> Board
 
 enum MoveDirection {
   {static} + UP
@@ -65,7 +78,7 @@ enum MoveDirection {
 }
 
 class Pawn {
-  +double_step: bool
+  +double_step: bool {readOnly}
   +move_direction: MoveDirection {readOnly}
   +promoted: bool {readOnly}
   +promote_to(piece_type: PieceType)
@@ -78,6 +91,7 @@ abstract class Piece {
   +color: Color {readOnly}
   +moved: bool {readOnly}
   +place_at: Square {readOnly}
+  -former_squares: Square[]
   -promoted_from: Piece
   {abstract} +attack_squares(): Square[]
   {abstract} +capture_free_moves(): Square[]
@@ -93,8 +107,9 @@ abstract class Piece {
   +is_rook(): bool
   +is_offboard(): bool
   +is_onboard(): bool
-  +move_to()
-  +put_at()
+  +move_back()
+  +move_to(new_place)
+  +put_at(place)
   +remove()
 }
 Piece --> Color
@@ -117,8 +132,10 @@ enum PieceType {
 class Square {
   -all_squares: Squares
   +color: Color {readOnly}
-  +file: int {readOnly}
-  +rank: int {readOnly}
+  +file: str {readOnly}
+  +rank: str {readOnly}
+  +file_index: int {readOnly}
+  +rank_index: int {readOnly}
   +piece: Piece
   +down: Square {readOnly}
   +left: Square {readOnly}
