@@ -40,3 +40,7 @@ class Board(object):
     """Возвращает в значальные координаты квадрата"""
     def get_square(self, x, y):
         return self._squares[x][y]
+
+    """Очищает квадрат по указанным координатом"""
+    def clear_square(self, x, y):
+        self.get_square(x, y).piece = None
