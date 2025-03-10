@@ -36,3 +36,7 @@ class Board(object):
                         piece = None
                 row.append(square)
             self._squares.append(row)
+
+    """Возвращает в значальные координаты квадрата"""
+    def get_square(self, x, y):
+        return self._squares[x][y]
