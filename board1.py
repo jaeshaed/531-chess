@@ -6,7 +6,6 @@ from bishop import Bishop
 from Queen import Queen
 from rook  import Rook
 
-
 """Класс игровой доски"""
 class Board(object):
     """Конструктор в котором реализовано размещение фигур"""
