@@ -91,7 +91,7 @@ abstract class Piece {
   +color: Color {readOnly}
   +moved: bool {readOnly}
   +place_at: Square {readOnly}
-  -former_squares: Square[]
+  #former_squares: Square[]
   -promoted_from: Piece
   {abstract} +attack_squares(): Square[]
   {abstract} +capture_free_moves(): Square[]
