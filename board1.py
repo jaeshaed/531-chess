@@ -3,13 +3,14 @@ from pawn import Pawn
 from knight import Knight
 from king import King
 from bishop import Bishop
-from Queen import Queen
+from queen import Queen
 from rook  import Rook
+
 
 """Класс игровой доски"""
 class Board(object):
     """Конструктор в котором реализовано размещение фигур"""
-    def __init__(self):
+    def __init__(self, initial_position=False):
         self._squares = []
         for i in range(8):
             row = []
@@ -34,6 +35,7 @@ class Board(object):
                         piece = King('BLACK')
                     else:
                         piece = None
+                square.piece = piece  # Присваиваем фигуру клетке
                 row.append(square)
             self._squares.append(row)
 
