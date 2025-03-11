@@ -10,13 +10,14 @@ from rook  import Rook
 """Класс игровой доски"""
 class Board(object):
     """Конструктор в котором реализовано размещение фигур"""
-    def __init__(self, initial_position=False):
+    def __init__(self, initial_position=True):
         self._squares = []
         for i in range(8):
             row = []
             for j in range(8):
                 square = Square(i, j)
-                if i == 0 or i == 7 or j == 0 or j == 7:
+                if initial_position:
+                  if i == 0 or i == 7 or j == 0 or j == 7:
                     piece = None
                 else:
                     if i % 2 != j % 2:
@@ -60,3 +61,11 @@ class Board(object):
             if i % 2 == 0:
                 result += '---------------\n'
         return result
+
+"""Создаём доску с фигурами"""
+board_with_piece = Board(initial_position=False)
+print(board_with_piece)    
+
+"""Создаём доску с пустыми клетками"""
+board = Board(initial_position=False)
+print(board)
