@@ -1,5 +1,3 @@
-from deep_translator.validate import is_empty
-
 from piece import Piece
 """Импорт из файла Piece"""
 
@@ -18,10 +16,12 @@ class Knight(Piece):
     дополнительные действия при получении или установке значения атрибута."""
 
 
+        
     def attack_squares(self):
         """Возвращение квадрата, ведь конь ходит и атакует с одинаковыми ходами"""
         moves = []
-        """Проверка возможности хода"""
+        # initial_square = self.place_at
+        # check_square = self.place_at.up.up.right.is_empty()
         if self.place_at.file < 6:
             if self.place_at.rank < 7:
                 dest = self.game.board.squares[self.place_at + 2][self.place_at + 1],
@@ -39,11 +39,24 @@ class Knight(Piece):
         return moves
 
     def capture_free_squares(self):
-        """Проверяем"""
-        return [(self.place_at.file + 1, self.place_at.rank + 2),is_empty()]
+        """Проверяем квадраты доступные для перемещения без захвата"""
+        move1=[]
+        for row in range(-2, 3):
+            for col in range(-2, 3):
+                if row != 0 or col != 0:
+                    file = self.place_at.file + row
+                    rank = self.place_at.rank + col
+                    try:
+                        dest = self.game.board.squares[file][rank]
+                        if dest.is_empty():
+                            move1.append(dest)
+                    except IndexError as e:
+                        print(f"Ошибка: {e}")
+        return move1
 
     def captures(self):
-        return []
+        """Квадраты для захвата"""
+        return [(self.place_at.file + 1, self.place_at.rank + 2)]
 
     def valid_moves(self):
         return self.place_at+self.captures
