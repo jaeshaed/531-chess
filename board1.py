@@ -5,7 +5,7 @@ from king import King
 from bishop import Bishop
 from queen import Queen
 from rook  import Rook
-
+from square import Square
 
 """Класс игровой доски"""
 class Board(object):
