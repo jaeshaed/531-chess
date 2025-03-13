@@ -59,6 +59,7 @@ class Knight(Piece):
         return [(self.place_at.file + 1, self.place_at.rank + 2)]
 
     def valid_moves(self):
+        """Все ходы коня"""
         return self.place_at+self.captures
 
 
