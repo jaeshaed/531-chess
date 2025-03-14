@@ -28,13 +28,14 @@ class Square:
         self.rank = rank_index + 1
         self.piece = None
 
+
     @property
     def color(self):
-        return Color.WHITE
-        return Color.BLACK
-    
-    
-    
+        if (self.file_index + self.rank) % 2 ==0:
+            return Color.WHITE
+        else: 
+            return Color.BLACK
+        
     @property
     def down(self):
         return self._all_squares[self.file_index][self.rank_index - 1]
@@ -45,7 +46,7 @@ class Square:
     
     @property
     def left(self):
-        return self._all_squares[self.file_index - 1][self.rank_index] 
+        return self._all_squares[self.file_index - 1][self.rank_index]
     
     @property
     def right(self):
@@ -75,3 +76,10 @@ print(square.piece)
 print(square.down)
 square.down = 555
 print(square.down)'''
+
+
+
+
+
+
+
