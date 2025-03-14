@@ -38,6 +38,30 @@ class Square:
     def highlight_color(self):
         return self._highlight_color
 
+    @property
+    def color(self):
+        return Color.WHITE
+        return Color.BLACK
+    
+    
+    
+    @property
+    def down(self):
+        return self._all_squares[self.file_index][self.rank_index - 1]
+    
+    @property
+    def up(self):
+        return self._all_squares[self.file_index][self.rank_index + 1]
+    
+    @property
+    def left(self):
+        return self._all_squares[self.file_index - 1][self.rank_index] 
+    
+    @property
+    def right(self):
+        return self._all_squares[self.file_index + 1][self.rank_index]
+    
+
     def is_empty(self):
         return self._occupant is None
 

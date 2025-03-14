@@ -76,3 +76,21 @@ class Pawn(Piece):
             if y == 6:
                 moves.append((x, y - 2))
         return moves
+    
+    def move_to(self, new_place, start_position):
+        if self.color == "white":
+            if new_place[1] == start_position[1] + 1 and new_place[0] == start_position[0]:
+                return True
+            elif start_position[1] == 1 and new_place[1] == start_position[1] + 2 and new_place[0] == start_position[0]:
+                return True
+            elif new_place[1] == start_position[1] + 1 and abs(new_place[0] - start_position[0]) == 1:
+                return True
+            return False
+        else:
+            if new_place[1] == start_position[1] - 1 and new_place[0] == start_position[0]:
+                return True
+            elif start_position[1] == 6 and new_place[1] == start_position[1] - 2 and new_place[0] == start_position[0]:
+                return True
+            elif new_place[1] == start_position[1] - 1 and abs(new_place[0] - start_position[0]) == 1:
+                return True
+            return False

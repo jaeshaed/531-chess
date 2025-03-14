@@ -4,25 +4,24 @@ hide empty members
 title Диаграмма классов
 
 class Board {
-  -game: Game
-  +squares: Squares
+  +squares: Squares {readOnly}
   +white_pieces: Piece[]
   +black_pieces: Piece[]
   +white_king: King
   +black_king: King
   +clear()
-  +put_black_bishop_at(): Piece
-  +put_black_king_at(): Piece
-  +put_black_knight_at(): Piece
-  +put_black_pawn_at(): Piece
-  +put_black_queen_at(): Piece
-  +put_black_rook_at(): Piece
-  +put_white_bishop_at(): Piece
-  +put_white_king_at(): Piece
-  +put_white_knight_at(): Piece
-  +put_white_pawn_at(): Piece
-  +put_white_queen_at(): Piece
-  +put_white_rook_at(): Piece
+  +put_black_bishop_at(place): Piece
+  +put_black_king_at(place): Piece
+  +put_black_knight_at(place): Piece
+  +put_black_pawn_at(place): Piece
+  +put_black_queen_at(place): Piece
+  +put_black_rook_at(place): Piece
+  +put_white_bishop_at(place): Piece
+  +put_white_king_at(place): Piece
+  +put_white_knight_at(place): Piece
+  +put_white_pawn_at(place): Piece
+  +put_white_queen_at(place): Piece
+  +put_white_rook_at(place): Piece
 }
 Board "1" *-- "32" Piece
 Board "1" *-- "1" Squares
@@ -91,7 +90,7 @@ abstract class Piece {
   +color: Color {readOnly}
   +moved: bool {readOnly}
   +place_at: Square {readOnly}
-  -former_squares: Square[]
+  #former_squares: Square[]
   -promoted_from: Piece
   {abstract} +attack_squares(): Square[]
   {abstract} +capture_free_moves(): Square[]
