@@ -1,3 +1,4 @@
+from bishop import Bishop
 from color import Color
 from pawn import Pawn
 from square import Square
@@ -17,10 +18,10 @@ class Board:
         #return Pawn(Color.WHITE, square)
 
     def put_black_bishop_at(self, square):
-        pass
+        return Bishop(self, Color.BLACK, square)
 
     def put_white_bishop_at(self, square):
-        pass
+        return Bishop(self, Color.WHITE, square)
 
     def put_black_rook_at(self, square):
         pass
