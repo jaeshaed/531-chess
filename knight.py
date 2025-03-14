@@ -1,5 +1,3 @@
-from deep_translator.validate import is_empty
-
 from piece import Piece
 """Импорт из файла Piece"""
 

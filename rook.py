@@ -1,4 +1,6 @@
+from color import Color
 from piece import Piece
+from square import Square
 
 class Rook(Piece):
 
@@ -9,7 +11,7 @@ class Rook(Piece):
         return self.color
 
 class Rook(Piece):
-    def __init__(self, color: Color, board: Board):
+    def __init__(self, color: Color, board):
         super().__init__(color, board)
         self.moved = False  
 
