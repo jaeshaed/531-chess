@@ -7,15 +7,11 @@ class Rook(Piece):
     def __init__(self,color,place_at=None):
         super().__init__(color,place_at)
 
+    @property
     def color(self):
-        return self.color
-
-    def __init__(self,board):
-        super().__init__(board)
-        self.moved = False  
+        return self._color
 
     def valid_moves(self) -> Square:
-       
         moves = []
         current_square = self.place_at
 
@@ -66,14 +62,14 @@ class Rook(Piece):
         return moves
 
     def move_to(self, square: Square):
-        #Перемещение ладьи на указанную клетку
+        # Перемещение ладьи на указанную клетку
         if square in self.valid_moves():
             self.remove()  
             self.place_at = square  
             self.put_at(square)  
             self.moved = True  
         else:
-            raise Exception
+            raise Exception("Invalid move")
 
 
 
