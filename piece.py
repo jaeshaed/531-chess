@@ -15,6 +15,7 @@ class Piece:
     @property
     def color(self):
         return self._color
+    
 
     def attack_squares(self):
         """Возвращает список полей, которые фигура может атаковать.

@@ -2,8 +2,8 @@
 from piece import Piece
 
 class Bishop(Piece):
-    def __init__(self, color, place_at=None):
-        super().__init__(self,color,place_at)
+    def __init__(self,board,color, place_at=None):
+        super().__init__(board,color,place_at)
         moves = []
         # вправо-ввехр
         x = self.place_at.file + 1
