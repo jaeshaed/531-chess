@@ -1,4 +1,7 @@
 from piece_type import PieceType
+from square import Square
+
+
 class Piece:
     """Базовый класс для шахматных фигур."""
 
@@ -68,10 +71,10 @@ class Piece:
         return self._type == PieceType.ROOK
     
     def put_at(self, place):
-        if self.is_onboard()
+        if self.is_onboard():
             raise Exception("Фигура уже на доске")
-        if isinstance(place, square):
-            if place.piece is not None
+        if isinstance(place, Square):
+            if place.piece is not None:
                 raise Exception("На поле уже стоит другая фигура")
             place.piece = self
         else:
@@ -81,13 +84,16 @@ class Piece:
             place.piece = self
 
     def move_to(self, new_square):
+        if self.offboard():
+            raise Exception("Фигура уже на доске")
         old_square = self.place_at
         self.place_at = new_square
         self.new_square.piece = self
         self._former_squares.append(old_square)
 
     def move_back(self):
-        
+        if not self.moved:
+            raise Exception("Фигура еще не ходила")
         self.place_at = self._former_squares.pop()
 
 

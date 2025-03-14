@@ -2,9 +2,11 @@ from piece import Piece
 from piece_type import PieceType
 
 class Pawn(Piece):
-    def __init__(self, color, place_at, position):
-        super().__init__(color, place_at)
-        self.position = position
+    def __init__(self, board, color, place=None):
+        super().__init__(board, color, PieceType.PAWN, place)
+        self.place_at = None
+        if place is not None:
+            self.put_at(place)
         self._promoted_to = None
     
     @property
@@ -40,14 +42,14 @@ class Pawn(Piece):
 
 
     def attack_squares(self):
-        x, y = self.position
+        x, y = self.place_at.file_index, self.place_at.rank_index
         if self.color == 'white':
             return [(x - 1, y + 1), (x + 1, y + 1)]
         else:
             return [(x - 1, y - 1), (x + 1, y - 1)]
 
     def capture_free_squares(self):
-        x, y = self.position
+        x, y = self.place_at.file_index, self.place_at.rank_index
         captures = []
 
         if self.color == 'white':
@@ -64,7 +66,7 @@ class Pawn(Piece):
         return captures
 
     def valid_moves(self):
-        x, y = self.position
+        x, y = self.place_at.file_index, self.place_at.rank_indexv
         moves = []
 
         if self.color == 'white':
@@ -76,21 +78,3 @@ class Pawn(Piece):
             if y == 6:
                 moves.append((x, y - 2))
         return moves
-    
-    def move_to(self, new_place, start_position):
-        if self.color == "white":
-            if new_place[1] == start_position[1] + 1 and new_place[0] == start_position[0]:
-                return True
-            elif start_position[1] == 1 and new_place[1] == start_position[1] + 2 and new_place[0] == start_position[0]:
-                return True
-            elif new_place[1] == start_position[1] + 1 and abs(new_place[0] - start_position[0]) == 1:
-                return True
-            return False
-        else:
-            if new_place[1] == start_position[1] - 1 and new_place[0] == start_position[0]:
-                return True
-            elif start_position[1] == 6 and new_place[1] == start_position[1] - 2 and new_place[0] == start_position[0]:
-                return True
-            elif new_place[1] == start_position[1] - 1 and abs(new_place[0] - start_position[0]) == 1:
-                return True
-            return False
