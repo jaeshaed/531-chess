@@ -69,10 +69,10 @@ class Piece:
         return self._type == PieceType.ROOK
     
     def put_at(self, place):
-        if self.is_onboard()
+        if self.is_onboard():
             raise Exception("Фигура уже на доске")
         if isinstance(place, square):
-            if place.piece is not None
+            if place.piece is not None:
                 raise Exception("На поле уже стоит другая фигура")
             place.piece = self
         else:
