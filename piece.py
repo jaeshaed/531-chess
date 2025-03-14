@@ -1,13 +1,15 @@
 class Piece:
     """Базовый класс для шахматных фигур."""
 
-    def __init__(self, color, place_at = None):
+    def __init__(self,board, color, place_at = None):
         self._color = color
         self.place_at = place_at
+        self.board = board
 
     @property
     def color(self):
         return self._color
+    
 
     def attack_squares(self):
         """Возвращает список полей, которые фигура может атаковать.
