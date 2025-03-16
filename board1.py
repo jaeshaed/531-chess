@@ -7,35 +7,43 @@ from queen import Queen
 from rook  import Rook
 from square import Square
 
-"""Класс игровой доски"""
 class Board(object):
-    """Конструктор в котором реализовано размещение фигур"""
+    """Класс игровой доски"""
     def __init__(self, initial_position=True):
         self._squares = []
         for i in range(8):
             row = []
             for j in range(8):
                 square = Square(i, j)
+                piece = None
                 if initial_position:
-                  if i == 0 or i == 7 or j == 0 or j == 7:
-                    piece = None
-                else:
-                    if i % 2 != j % 2:
-                        piece = Pawn('WHITE') if i < 6 else Pawn('BLACK')
-                    elif i > 1 and i < 6 and j % 2 == 0:
-                        piece = Rook('WHITE') if i < 4 else Rook('BLACK')
-                    elif i > 1 and i < 6 and j % 2 == 1:
-                        piece = Knight('WHITE') if i < 4 else Knight('BLACK')
-                    elif i > 1 and i < 6 and j == 1:
-                        piece = Bishop('WHITE') if i < 4 else Bishop('BLACK')
-                    elif i > 1 and i < 6 and j == 6:
-                        piece = Queen('WHITE') if i < 4 else Queen('BLACK')
-                    elif i == 1:
-                        piece = King('WHITE')
-                    elif i == 6:
-                        piece = King('BLACK')
-                    else:
-                        piece = None
+                    # Расстановка фигур для начальной позиции
+                    if i == 0:  # Первая горизонталь (белые фигуры)
+                        if j == 0 or j == 7:
+                            piece = Rook('WHITE')
+                        elif j == 1 or j == 6:
+                            piece = Knight('WHITE')
+                        elif j == 2 or j == 5:
+                            piece = Bishop('WHITE')
+                        elif j == 3:
+                            piece = Queen('WHITE')
+                        elif j == 4:
+                            piece = King('WHITE')
+                    elif i == 1:  # Вторая горизонталь (белые пешки)
+                        piece = Pawn('WHITE')
+                    elif i == 6:  # Седьмая горизонталь (черные пешки)
+                        piece = Pawn('BLACK')
+                    elif i == 7:  # Восьмая горизонталь (черные фигуры)
+                        if j == 0 or j == 7:
+                            piece = Rook('BLACK')
+                        elif j == 1 or j == 6:
+                            piece = Knight('BLACK')
+                        elif j == 2 or j == 5:
+                            piece = Bishop('BLACK')
+                        elif j == 3:
+                            piece = Queen('BLACK')
+                        elif j == 4:
+                            piece = King('BLACK')
                 square.piece = piece  # Присваиваем фигуру клетке
                 row.append(square)
             self._squares.append(row)
