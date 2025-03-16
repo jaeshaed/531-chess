@@ -62,10 +62,13 @@ class Board(object):
                 result += '---------------\n'
         return result
 
-"""Создаём доску с фигурами"""
-board_with_piece = Board(initial_position=False)
-print(board_with_piece)    
 
-"""Создаём доску с пустыми клетками"""
-board = Board(initial_position=False)
-print(board)
+if __name__ == "__main__":
+    """Создаём доску с фигурами"""
+    board_with_piece = Board(initial_position=False)
+    print(board_with_piece)
+
+    """Создаём доску с пустыми клетками"""
+    board = Board(initial_position=False)
+    print(board)
+
