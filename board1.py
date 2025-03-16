@@ -57,17 +57,16 @@ class Board(object):
         self.get_square(x, y).piece = None
 
 
-    """Визуализация шахматной доски"""
     def __str__(self):
+        """Визуализация шахматной доски"""
         result = ''
         for i in range(8):
             for j in range(8):
                 square = self.get_square(i, j)
-                piece = f"{square.piece}" if square.piece is not None else '-'
-                result += f"| {piece} "
+                piece = str(square.piece) if square.piece is not None else '-'
+                result += f"| {piece:^5} "  # Центрируем текст для красоты
             result += '|\n'
-            if i % 2 == 0:
-                result += '---------------\n'
+            result += '-' * (8 * 7) + '\n'  # Горизонтальная линия
         return result
 
 
